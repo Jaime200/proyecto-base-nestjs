@@ -6,5 +6,6 @@ import { ColaboradorController } from './colaborador.controller';
     imports: [],
     controllers: [ColaboradorController],
     providers: [ColaboradorService],
+    exports : [ColaboradorService]
 })
 export class ColaboradorModule {}
