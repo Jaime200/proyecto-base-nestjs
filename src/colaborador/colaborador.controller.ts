@@ -2,6 +2,9 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Par
 import { Response } from 'express'
 import { ColaboradorService } from './Services/colaborador.service';
 import { CreateColaboradorDTO, UpdateColaboradorDTO } from './dto/colaborador.dto';
+import { ApiTags } from '@nestjs/swagger'
+
+@ApiTags('Colaborador')
 @Controller('colaborador')
 export class ColaboradorController {
 
