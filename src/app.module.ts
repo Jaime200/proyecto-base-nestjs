@@ -6,12 +6,18 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config'
 import { enviromets } from '../enviroments'
 import config from '../config'
+import * as Joi from 'joi';
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath : enviromets[process.env.NODE_ENV] || '.env',
       load: [config],
       isGlobal: true,
+      validationSchema : Joi.object({
+        DATABASE_NAME : Joi.string().required(),
+        DATABASE_PORT : Joi.number().required(),
+        API_KEY : Joi.string().required()
+      })
     }),
     ColaboradorModule, 
     DatabaseModule],
