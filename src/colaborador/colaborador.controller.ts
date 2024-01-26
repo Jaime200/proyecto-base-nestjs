@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, ParseIntPipe, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express'
 import { ColaboradorService } from './Services/colaborador.service';
-import { CreateColaboradorDTO, UpdateColaboradorDTO } from './dto/colaborador.dtos';
+import { CreateColaboradorDTO, UpdateColaboradorDTO } from './dto/colaborador.dto';
 @Controller('colaborador')
 export class ColaboradorController {
 

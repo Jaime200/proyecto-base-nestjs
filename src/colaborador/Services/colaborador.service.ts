@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { COLABORADOR } from '../Entties/Colaborador.Entity';
+import { COLABORADOR } from '../Entties/Colaborador.entity';
 
 @Injectable()
 export class ColaboradorService {
