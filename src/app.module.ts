@@ -3,9 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ColaboradorModule } from './colaborador/colaborador.module';
 import { DatabaseModule } from './database/database.module';
-
+import { ConfigModule } from '@nestjs/config'
 @Module({
-  imports: [ColaboradorModule, DatabaseModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath : '.env',
+      isGlobal: true,
+    }),
+    ColaboradorModule, 
+    DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
