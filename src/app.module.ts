@@ -18,6 +18,7 @@ import * as Joi from 'joi';
         DATABASE_PORT : Joi.number().required(),
         DATABASE_HOST : Joi.string().required(),
         DATABASE_USER : Joi.string().required(),
+        DATABASE_PWD : Joi.string().required(),
         API_KEY : Joi.string().required()
       })
     }),

@@ -1,21 +1,15 @@
 import { Global, Module } from '@nestjs/common';
 import { HttpModule, HttpService } from '@nestjs/axios'
-import { lastValueFrom } from 'rxjs'
 import { Client } from 'pg'
+import { ConfigType } from '@nestjs/config'
+import config from '../../config'
+
 
 const API_KEY = '123456'
 const API_KEY_PROD = '123456_PROD'
 
 
-const client = new Client({
-  user: 'root',
-  host: 'localhost',
-  database: 'nombasei',
-  password : '123456',
-  port: 5432
-})
 
-client.connect();
 
 @Global()
 @Module({
@@ -27,7 +21,23 @@ client.connect();
         },
         {
             provide: 'PG',
-            useValue : client
+            useFactory : async (configService : ConfigType<typeof config> ) => {
+
+              
+              const { user, host, name, port, pwd } = configService.database
+              
+              const client =    new Client({
+                  user: user,
+                  host: host,
+                  database: name,
+                  password : pwd,
+                  port: port
+                });
+                client.connect()
+                return client
+            },
+            
+            inject: [config.KEY]
         },
           {
             provide : 'TASKS',
