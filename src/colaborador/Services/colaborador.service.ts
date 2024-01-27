@@ -1,8 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { COLABORADOR } from '../Entties/Colaborador.entity';
+import { Client } from 'pg';
 
 @Injectable()
 export class ColaboradorService {
+    constructor(
+        @Inject("PG") private pgClient: Client
+    ){
+
+    }
     private colaboradores : COLABORADOR[] = [
         {
             ID:1,
@@ -19,7 +25,14 @@ export class ColaboradorService {
     ]
 
     fidAll(){
-        return this.colaboradores
+        return new Promise((resolve, reject )=> {
+            return this.pgClient.query("SELECT * FROM COLABORADOR", (err, resp) =>{
+                if(err) reject(err)
+                else resolve(resp.rows)
+            })
+        })
+        
+        
     }
 
     crate(payload:COLABORADOR){
