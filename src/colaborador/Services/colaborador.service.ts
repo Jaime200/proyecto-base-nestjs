@@ -1,11 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { COLABORADOR } from '../Entties/Colaborador.entity';
 import { Client } from 'pg';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ColaboradorService {
     constructor(
-        @Inject("PG") private pgClient: Client
+        @Inject("PG") private pgClient: Client,
+        @Inject("COLABORADOR_REPOSITORY") 
+        private colaboradorRepository: Repository<COLABORADOR>,
     ){
 
     }
@@ -25,12 +28,13 @@ export class ColaboradorService {
     ]
 
     fidAll(){
-        return new Promise((resolve, reject )=> {
-            return this.pgClient.query("SELECT * FROM COLABORADOR", (err, resp) =>{
-                if(err) reject(err)
-                else resolve(resp.rows)
-            })
-        })
+        // return new Promise((resolve, reject )=> {
+        //     return this.pgClient.query("SELECT * FROM COLABORADOR", (err, resp) =>{
+        //         if(err) reject(err)
+        //         else resolve(resp.rows)
+        //     })
+        // })
+        return this.colaboradorRepository.find()
         
         
     }
