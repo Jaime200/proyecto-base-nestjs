@@ -3,6 +3,7 @@ import { HttpModule, HttpService } from '@nestjs/axios'
 import { Client } from 'pg'
 import { ConfigType } from '@nestjs/config'
 import config from '../../config'
+import { DataSource } from 'typeorm';
 
 
 const API_KEY = '123456'
@@ -39,6 +40,28 @@ const API_KEY_PROD = '123456_PROD'
             
             inject: [config.KEY]
         },
+        {
+          provide: 'context',
+          useFactory : async (configService : ConfigType<typeof config>) =>{
+            const { user, host, name, port, pwd } = configService.database
+            const dataSource = new DataSource({
+                type: 'postgres',
+                host: host,
+                database: name,
+                password : pwd,
+                username: user,
+                port: port,
+                entities: [
+                  __dirname + '/../**/*.entity{.ts,.js}',
+              ],
+              synchronize: true,
+              })
+
+              return dataSource.initialize();
+          },
+          inject: [config.KEY]
+        },
+
           {
             provide : 'TASKS',
             useFactory : async (http: HttpService) => {
@@ -50,6 +73,6 @@ const API_KEY_PROD = '123456_PROD'
           },
 
     ],
-    exports : ['API_KEY', 'PG', 'TASKS']
+    exports : ['API_KEY', 'PG', 'TASKS','context']
 })
 export class DatabaseModule {}
