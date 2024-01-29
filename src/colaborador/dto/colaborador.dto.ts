@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
-import { IsDate, IsNotEmpty, IsString } from 'class-validator'
+import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 
 export class CreateColaboradorDTO {
@@ -12,6 +12,7 @@ export class CreateColaboradorDTO {
     readonly SEGUNDO_NOMBRE: string
 
     @IsString()
+    @IsOptional()
     readonly TERCER_NOMBRE : string
 
     @IsString()

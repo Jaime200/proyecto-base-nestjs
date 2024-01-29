@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ColaboradorService } from './Services/colaborador.service';
 import { ColaboradorController } from './colaborador.controller';
 import { DataSource } from 'typeorm';
-import { COLABORADOR } from './Entties/Colaborador.entity';
+import { COLABORADOREntity } from './Entties/Colaborador.entity';
 
 @Module({
     imports: [],
@@ -10,7 +10,7 @@ import { COLABORADOR } from './Entties/Colaborador.entity';
     providers: [
         {
             provide: 'COLABORADOR_REPOSITORY',
-            useFactory: (dataSource: DataSource) => dataSource.getRepository(COLABORADOR),
+            useFactory: (dataSource: DataSource) => dataSource.getRepository(COLABORADOREntity),
             inject: ['context']
         },
         ColaboradorService],

@@ -1,26 +1,28 @@
 import {  PrimaryGeneratedColumn 
 , Column
-,Entity
+,Entity,
+CreateDateColumn,
+UpdateDateColumn
 } from 'typeorm'
 
-@Entity()
-export class COLABORADOR {
+@Entity('COLABORADOR')
+export class COLABORADOREntity {
     @PrimaryGeneratedColumn()
     ID: number
 
-    @Column( {type : 'varchar', length: 50, nullable: false})
+    @Column( {type : 'varchar', length: 50 ,nullable: false})
     PRIMER_NOMBRE: string
 
-    @Column( {type : 'varchar', length: 50})
+    @Column( {type : 'varchar', length: 50, nullable: true})
     SEGUNDO_NOMBRE: string
 
-    @Column( {type : 'varchar', length: 50})
+    @Column( {type : 'varchar', length: 50, nullable: true})
     TERCER_NOMBRE : string
 
     @Column( {type : 'varchar', length: 50, nullable: false})
     PRIMER_APELLIDO: string
 
-    @Column( {type : 'varchar', length: 50})
+    @Column( {type : 'varchar', length: 50, nullable: true})
     SEGUNDO_APELLIDO: string
 
     @Column( {type : 'varchar', length: 2})
@@ -31,4 +33,15 @@ export class COLABORADOR {
 
     @Column( {type : 'timestamp'})
     FECHA_NACIMIENTO: Date
+
+    @Column({ type: 'int', default : 1 })
+    ESTADO : number
+
+    @Column({type: 'timestamp'})
+    @CreateDateColumn()
+    FECHA_CREACION
+
+    @Column({type: 'timestamp'})
+    @UpdateDateColumn()
+    FECHA_MODIFICACION
 }

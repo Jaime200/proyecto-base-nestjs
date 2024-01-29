@@ -32,18 +32,14 @@ export class ColaboradorController {
 
     @Post()
     create(@Body() payload: CreateColaboradorDTO){
-        return {
-            message : 'Accion de crear',
-            payload
-        }
+        return this.colaboradorService.crate(payload)
     }
     @Put(':id')
+
+
     update(@Param('id', ParseIntPipe) id: number, 
     @Body() payload: UpdateColaboradorDTO){
-       return {
-        id,
-        payload
-       }
+       return this.colaboradorService.update(id, payload)
     }
 
     @Delete(':id')
